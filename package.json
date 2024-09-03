@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "npx mocha --reporter mochawesome",
+    "test:booking": "npx mocha test/suites/booking.suite.js",
     "suites:booking" : "npx mocha --reporter mochawesome test/suites/booking.suite.js"
   },
   "keywords": [
