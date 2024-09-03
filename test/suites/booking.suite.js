@@ -21,6 +21,7 @@ describe("End to End Testing Booking", () => {
             expect(responseToken.status).to.equal(200); // Validasi status code
             token = responseToken.body.token;  // Ambil token dari response
             expect(token).to.be.a('string');   // Pastikan token adalah string
+            expect(responseToken.body).to.have.property('token'); // Assertion tambahan: Memastikan response body memiliki property 'token'
             console.log("Token:", token);  
         } catch (error) {
             console.error("Error in before hook:", error);
@@ -38,8 +39,9 @@ describe("End to End Testing Booking", () => {
 
     it("Success Create An Booking", async () => {
         const response = await createAnBooking.booking()
-        expect((await response).status).to.equal(200)
+        expect((await response).status).to.equal(200) // Assertion: Memastikan status code adalah 200
         bookingId = (await response).body.bookingid
+        expect(response.body).to.have.property('bookingid'); // Assertion tambahan: Memastikan response body memiliki property 'bookingid'
         console.log("Status Code:", (await response).status);
         console.log("Booking Id: ", bookingId);
         console.log("Response Body:", (await response).body); 
@@ -47,7 +49,8 @@ describe("End to End Testing Booking", () => {
 
     it("Succes Get Booking by Id", async () => {
         const response = await getBooking.id(bookingId)
-        expect((await response).status).to.equal(200)
+        expect((await response).status).to.equal(200) // Assertion: Memastikan status code adalah 200
+        expect(response.body).to.have.property('firstname'); // Assertion tambahan: Memastikan response body memiliki property 'firstname'
         console.log("Status Code:", (await response).status);
         console.log("Booking Id: ", bookingId);
         console.log("Response Body:", (await response).body);
@@ -55,7 +58,8 @@ describe("End to End Testing Booking", () => {
 
     it("Success Update Booking by Id", async () => {
         const response = await updateBooking(bookingId, token)
-        expect((await response).status).to.equal(200);
+        expect((await response).status).to.equal(200); // Assertion: Memastikan status code adalah 200
+        expect(response.body).to.have.property('firstname').that.equals("James"); // Assertion tambahan: Memastikan bookingid yang diperbarui sesuai dengan bookingId
         console.log("Status Code:", (await response).status);
         console.log("Booking Id: ", bookingId);
         console.log("Response Body:", (await response).body);
